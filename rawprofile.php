@@ -21,12 +21,15 @@ include 'common.php';
 $user_entity = load_user_entity();
 make_navigation_bar($user_entity, "rawprofile");
 
-if (isset($user_entity['stat']) && $user_entity['stat'] == 'ok')
-  $user_entity = $user_entity['result'];
+$capture_session = capture_session();
+if (isset($capture_session)) {
+   if (isset($user_entity['stat']) && $user_entity['stat'] == 'ok')
+     $user_entity = $user_entity['result'];
 
-$user_entity = json_encode($user_entity);
+   $user_entity = json_encode($user_entity);
 
 ?>
+
 <div id="page"><div class="content">
 </div></div>
 </body>
@@ -40,3 +43,10 @@ $user_entity = json_encode($user_entity);
         $(".content").append(pretty);
     });
 </script>
+<?
+
+}
+
+else {
+  echo "You must login to access this page<br>\n";
+}
