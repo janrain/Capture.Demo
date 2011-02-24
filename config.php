@@ -18,8 +18,7 @@ $options = parse_ini_file("config.ini");
 if (empty($options)) {
   echo "<br>*ERROR* Failed to parse config.ini.  Did you forget to create it?<br>\n";
   die();
-} else if (!isset($options['client_id']) || !isset($options['client_secret']) ||
-           $options['client_id'][0] == '<' || $options['client_secret'] == '<') {
+} else if (!isset($options['client_id']) || !isset($options['client_secret'])) {
   echo "<br>*ERROR* Please set client_id and client_secret in config.ini<br>\n";
   die();
 }
