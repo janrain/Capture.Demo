@@ -46,12 +46,12 @@ function make_navigation_bar($user_entity, $page_name = NULL)
       echo "Hello, " . $user_entity['name']['givenName'] . "";
 
       if ($page_name != "editprofile") {
-        echo "&nbsp;|&nbsp; <a href='editprofile' id='edit_profile'>Edit Your Profile</a>";
+        echo "&nbsp;|&nbsp; <a href='editprofile.php' id='edit_profile'>Edit Your Profile</a>";
       } else {
         echo "&nbsp;|&nbsp; Edit Your Profile";
       }
       if ($page_name != "rawprofile") {
-        echo "&nbsp;|&nbsp; <a href='rawprofile' id='raw_profile'>View Capture Profile</a>";
+        echo "&nbsp;|&nbsp; <a href='rawprofile.php' id='raw_profile'>View Capture Profile</a>";
       } else {
         echo "&nbsp;|&nbsp; View Capture Profile";
       }
@@ -61,7 +61,7 @@ function make_navigation_bar($user_entity, $page_name = NULL)
       debug_raw_data($user_entity);
     }
 
-    echo "&nbsp;|&nbsp; <a href='logout' id='logout'>Sign Out</a>";
+    echo "&nbsp;|&nbsp; <a href='logout.php' id='logout'>Sign Out</a>";
   }
 
   // User is not logged in, so display signin link
@@ -78,7 +78,7 @@ function make_signin_link()
   $app_addr = $options['captureui_addr'];
 
   $args = array ( 'response_type'   => 'code',
-                  'redirect_uri'    => $options['my_addr'] . "/oauth_redirect",
+                  'redirect_uri'    => $options['my_addr'] . "/oauth_redirect.php",
                   'client_id'       => $options['client_id'],
                   'xd_receiver'     => $options['my_addr'] . "/xdcomm.html");
 

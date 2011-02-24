@@ -12,7 +12,7 @@ include 'api.php';
 if (isset($_GET['code']))
 {
   $auth_code     = $_GET["code"];
-  $redirect_uri = $options['my_addr'] . "/oauth_redirect";
+  $redirect_uri = $options['my_addr'] . "/oauth_redirect.php";
 
   debug_out("*** Auth code: $auth_code <br>\n");
 
