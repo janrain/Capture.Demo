@@ -43,10 +43,11 @@ if (isset($capture_session)) {
         $(".content").append(pretty);
     });
 </script>
-<?
+<?php
 
 }
 
 else {
   echo "You must login to access this page<br>\n";
 }
+?>
