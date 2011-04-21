@@ -8,7 +8,7 @@
 //
 // The functions in this file manipulate a PHP session variable called
 // capture_session, which is an array with the following fields:
-//  - access_otken    - the OAuth access token
+//  - access_token    - the OAuth access token
 //  - expiration_time - when the token expires (same format as time())
 //  - refresh_token   - refresh token used to obtain another access_token when
 //                      the current access_token expires.
@@ -57,33 +57,41 @@ function capture_api_call($command, $arg_array = NULL, $access_token = NULL)
   global $options;
 
   $url = $options['capture_addr'] . "/$command";
-
-  $opts = array( 'protocol' => 'HTTP_VERSION_1_1' );
+  $curl_opts = array(CURLPROTO_HTTP => true, CURLOPT_RETURNTRANSFER => true);
 
   if (substr($options['capture_addr'], 0, 5) == "https")
-    $opts['ssl'] = array('version' => 'SSL_VERSION_SSLv3');
+    $curl_opts[CURLOPT_SSLVERSION] = 3;
 
   if (isset($access_token))
-    $opts['headers'] = array('Authorization' => "OAuth $access_token");
+    $curl_opts[CURLOPT_HTTPHEADER] = array("Authorization: OAuth $access_token");
 
+  //set method
   if (isset($arg_array))
-    $method = HTTP_METH_POST;
+    $curl_opts[CURLOPT_POST] = true;
   else
-    $method = HTTP_METH_GET;
+    $curl_opts[CURLOPT_HTTPGET] = true; //defaults to get
 
-  $httpRequest_OBJ = new HttpRequest($url, $method, $opts);
+  $cr = curl_init($url);
+  curl_setopt_array($cr, $curl_opts);
+
   if (isset($arg_array))
-    $httpRequest_OBJ->addPostFields($arg_array);
+    curl_setopt($cr, CURLOPT_POSTFIELDS, http_build_query($arg_array));
 
-  $result    = $httpRequest_OBJ->send();
-  if ($result->getResponseCode() != 200)
+  curl_setopt($cr, CURLINFO_HEADER_OUT, true);
+
+  $curl_result = curl_exec($cr);
+  $info = curl_getinfo($cr);
+  
+  if (curl_getinfo($cr, CURLINFO_HTTP_CODE) != 200)
   {
-    echo $result->getResponseStatus() . "<br><br>\n\n";
+    echo $info['http_code'] . "<br><br>\n\n";
+    echo $curl_result;
+    curl_close($cr); //cleanup
     die();
   }
 
-  $body      = $result->getBody();
-  $json_data = json_decode($body, true);
+  $json_data = json_decode($curl_result, true);
+  curl_close($cr); //cleanup
 
   /*
   if (!isset($json_data['stat']) || $json_data['stat'] != 'ok')
