@@ -31,14 +31,18 @@ else {
 ?>
 
 <script type='text/javascript'>
- var CAPTURE = {};
-    CAPTURE.resize = function(json) {
-        var o = JSON.parse(json);
-        $("iframe").height(o.h).width(o.w);
-        if (typeof console !== 'undefined') {
-            console.log("resize", o);
-        }
- };
+  var CAPTURE = {};
+  CAPTURE.resize = function(json) {
+    var o = JSON.parse(json);
+    $("iframe").height(o.h).width(o.w);
+    if (typeof console !== 'undefined') {
+      console.log("resize", o);
+    }
+  };
+  CAPTURE.closeProfileEditor = function() {
+    window.location = '/';
+  };
+ 
 </script>
 
 </body>
@@ -55,7 +59,7 @@ function make_edit_profile_frame($access_token)
   $app_addr = $options['captureui_addr'];
 
   $args = array( 'token'       => $access_token,
-                 'callback'    => 'closeProfileEditor',
+                 'callback'    => 'CAPTURE.closeProfileEditor',
                  'xd_receiver' => $options['my_addr'] . "/xdcomm.html");
 
   echo "<iframe class='profile' frameborder='0' scrolling='no' src='$app_addr/oauth/profile?" . http_build_query($args) . "'></iframe><br>\n\n";
