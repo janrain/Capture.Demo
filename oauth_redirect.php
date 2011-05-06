@@ -16,8 +16,14 @@ if (isset($_GET['code']))
   $redirect_uri = $options['my_addr'] . "/oauth_redirect.php";
 
   if (isset($options['sso_server']) && $from_sso){
-     $redirect_uri = $redirect_uri . "?origin=" . urlencode($options['my_addr']);
+     $my_uri = $options['my_addr'];
+     $last = $my_uri[strlen($my_uri)-1];
+     if($last != "/"){
+        $my_uri .= "/";
+     }
+     $redirect_uri = $redirect_uri . "?from_sso=1&origin=" . urlencode($my_uri);
   }
+
 
   debug_out("*** Auth code: $auth_code <br>\n");
 
