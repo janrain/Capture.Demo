@@ -11,10 +11,11 @@ include 'api.php';
 
 if (isset($_GET['code']))
 {
-  $auth_code     = $_GET["code"];
+  $auth_code    = $_GET["code"];
+  $from_sso    = $_GET["from_sso"];
   $redirect_uri = $options['my_addr'] . "/oauth_redirect.php";
 
-  if (isset($options['sso_server'])){
+  if (isset($options['sso_server']) && $from_sso){
      $redirect_uri = $redirect_uri . "?origin=" . urlencode($options['my_addr']);
   }
 

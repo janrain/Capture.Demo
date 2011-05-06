@@ -11,7 +11,7 @@ JANRAIN.SSO.CAPTURE.check_login({
     <?php
     echo "sso_server: '". $options['sso_server']. "',\n";
     echo "client_id: '" . $options['client_id'] . "',\n";
-    echo "redirect_uri: '" . $options['my_addr'] . "/oauth_redirect',\n";
+    echo "redirect_uri: '" . $options['my_addr'] . "/oauth_redirect?from_sso=1',\n";
     echo "logout_uri: '" . $options['my_addr'] .  "/logout.php',\n";
     echo "xd_receiver: '" . $options['my_addr'] .  "/xdcomm.html'\n";
     ?>
