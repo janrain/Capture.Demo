@@ -40,6 +40,11 @@ if (substr($options['capture_addr'], 0, 4) != "http")
   $options['capture_addr'] = ($options['use_ssl'] ? "https://" : "http://") .
                              $options['capture_addr'];
 
+if (isset($options['sso_server']) &&
+    substr($options['sso_server'], 0, 4) != "http") {
+  $options['sso_server'] = "https://" . $options['sso_server'];
+}
+
 function debug_out($str)
 {
   global $options;

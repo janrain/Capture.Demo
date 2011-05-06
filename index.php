@@ -10,6 +10,7 @@ include 'api.php';
 <head>
   <meta charset="UTF-8">
   <title>Janrain Capture Demo</title>
+  <?php include 'sso.php'; ?>
 </head>
 
 <body>

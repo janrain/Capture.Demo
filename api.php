@@ -21,7 +21,7 @@
 // array for a user entity from the server. load_user_entity calls get_entity.
 // ------------------------------------------------------------
 
-include 'config.php';
+include_once('config.php');
 
 // Anyone that uses this file will be manipulating the session variable
 // 'capture_session', so just start the session now.

@@ -61,7 +61,7 @@ function make_navigation_bar($user_entity, $page_name = NULL)
       debug_raw_data($user_entity);
     }
 
-    echo "&nbsp;|&nbsp; <a href='logout.php' id='logout'>Sign Out</a>";
+    echo "&nbsp;|&nbsp; <a href='logout.php' id='logout' onClick='sso_logout()'>Sign Out</a>";
   }
 
   // User is not logged in, so display signin link
