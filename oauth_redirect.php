@@ -14,6 +14,10 @@ if (isset($_GET['code']))
   $auth_code     = $_GET["code"];
   $redirect_uri = $options['my_addr'] . "/oauth_redirect.php";
 
+  if (isset($options['sso_server'])){
+     $redirect_uri = $redirect_uri . "?origin=" . urlencode($options['my_addr']);
+  }
+
   debug_out("*** Auth code: $auth_code <br>\n");
 
   // note: new_access_token is defined in common.php
