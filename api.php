@@ -25,7 +25,9 @@ include_once('config.php');
 
 // Anyone that uses this file will be manipulating the session variable
 // 'capture_session', so just start the session now.
-session_start();
+if (!session_start()){
+   exit('Could not start session - are php sessions enabled?');
+}
 
 function capture_session()
 {
@@ -81,7 +83,7 @@ function capture_api_call($command, $arg_array = NULL, $access_token = NULL)
 
   $curl_result = curl_exec($cr);
   $info = curl_getinfo($cr);
-  
+
   if (curl_getinfo($cr, CURLINFO_HTTP_CODE) != 200)
   {
     echo $info['http_code'] . "<br><br>\n\n";
@@ -151,6 +153,10 @@ function load_user_entity($can_refresh = true)
   $need_to_refresh = false;
 
   // Check if we need to refresh the access token
+  if (!isset($capture_session['access_token'])){
+    exit("No access token found in session: " .
+         print_r($capture_session, true));
+  }
   if (time() >= $capture_session['expiration_time'])
     $need_to_refresh = true;
   else
