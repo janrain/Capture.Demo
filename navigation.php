@@ -15,6 +15,7 @@
           scrolling: 'no',
           autoScale: true,
           width: 666,
+          height: 430,
           autoDimensions: false
        });
        // $('a[rel*=lightbox]').fancybox()
