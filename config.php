@@ -20,13 +20,15 @@ if (isset($_COOKIE['app'])) {
   $captureui_name = $_SERVER['QUERY_STRING'];
   parse_str($captureui_name); //returns $app if in params
 } else {
-  $app = 'eval';
+  $app = 'demo';
 }
 
 if (sizeof($options['captureui_addrs']) > 0 && (bool) $app) {
   setcookie('app', $app);
   $options['captureui_addr'] = $options['captureui_addrs'][$app];
   $options['capture_addr'] = $options['capture_addrs'][$app];
+  $options['client_id'] = $options['client_ids'][$app];
+  $options['client_secret'] = $options['client_secrets'][$app];
 }
 
 if (empty($options)) {
