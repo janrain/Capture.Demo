@@ -40,9 +40,9 @@ else {
     }
   };
   CAPTURE.closeProfileEditor = function() {
-    window.location = '/';
+    window.location = "<?php echo $_SERVER['HTTP_REFERER']; ?>";
   };
- 
+
 </script>
 
 </body>
