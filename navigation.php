@@ -38,6 +38,9 @@ function make_navigation_bar($user_entity, $page_name = NULL)
   if (isset($user_entity)) {
 
     if (isset($user_entity['stat']) && $user_entity['stat'] == 'ok') {
+      if (isset($_COOKIE['app'])) {
+        echo "<b>" . $_COOKIE['app'] . "</b>&nbsp;";
+      }
       $user_entity = $user_entity['result'];
 
       if ($page_name != "home")
