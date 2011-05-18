@@ -28,7 +28,6 @@
 function make_navigation_bar($user_entity, $page_name = NULL)
 {
   global $options;
-
   echo "<div id='navigation'>\n";
 
   // User is already logged in, so
@@ -66,10 +65,31 @@ function make_navigation_bar($user_entity, $page_name = NULL)
 
   // User is not logged in, so display signin link
   else {
+    make_app_addrs_list();
     make_signin_link();
   }
 
   echo "</div>\n";
+}
+function make_app_addrs_list()
+{
+  global $options;
+  $app_addrs = $options['captureui_addrs'];
+  $captureui_name = $_SERVER['QUERY_STRING'];
+  parse_str($captureui_name);
+
+  if (sizeof($app_addrs) > 1) {
+    echo "<select id='app_addrs'>";
+    foreach ($app_addrs as $key => $value) {
+      if($key == $app) {
+        $selected = "selected='yes' ";
+      } else {
+        $selected = "";
+      }
+      echo  "<option " . $selected . "value=" . $key . ">" . $key . " ==> " . $value . "</option>";
+    }
+    echo "</select>&nbsp;&nbsp;";
+  }
 }
 
 function make_signin_link()

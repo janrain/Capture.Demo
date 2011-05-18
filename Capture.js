@@ -13,3 +13,16 @@ CAPTURE = {
   }
 };
 
+$(document).ready(function() {
+  $('select#app_addrs').change(function() {
+    var app_name = $('option:selected', this).attr('value');
+    del_cookie('app');
+    var new_url = location.origin + location.pathname + "?app=" + app_name;
+    location = new_url;
+  });
+});
+
+function del_cookie(name) {
+document.cookie = name +
+'=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+}

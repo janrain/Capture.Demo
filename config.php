@@ -14,6 +14,20 @@ $default_options = array( 'debug'          => false,
                           );
 
 $options = parse_ini_file("config.ini");
+if (isset($_COOKIE['app'])) {
+  $app = $_COOKIE['app'];
+} else if ($_SERVER['QUERY_STRING']){
+  $captureui_name = $_SERVER['QUERY_STRING'];
+  parse_str($captureui_name); //returns $app if in params
+} else {
+  $app = 'eval';
+}
+
+if (sizeof($options['captureui_addrs']) > 0 && (bool) $app) {
+  setcookie('app', $app);
+  $options['captureui_addr'] = $options['captureui_addrs'][$app];
+  $options['capture_addr'] = $options['capture_addrs'][$app];
+}
 
 if (empty($options)) {
   echo "<br>*ERROR* Failed to parse config.ini.  Did you forget to create it?<br>\n";
