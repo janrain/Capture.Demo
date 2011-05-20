@@ -46,7 +46,7 @@ function make_navigation_bar($user_entity, $page_name = NULL)
       if ($page_name != "home")
         echo "<a href='.' id='home'>Home</a>";
 
-      echo "Hello, " . $user_entity['givenName'] . "";
+      // echo "Hello, " . $user_entity['givenName'] . "";
 
       if ($page_name != "editprofile") {
         echo "&nbsp;|&nbsp; <a href='editprofile.php' id='edit_profile'>Edit Your Profile</a>";
