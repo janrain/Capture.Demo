@@ -14,17 +14,21 @@ $default_options = array( 'debug'          => false,
                           );
 
 $options = parse_ini_file("config.ini");
-if (isset($_COOKIE['app'])) {
+
+$is_index = preg_match('/\/index.php/', $_SERVER['PHP_SELF']);
+if ($_SERVER['QUERY_STRING'] && $is_index){
+    $captureui_name = $_SERVER['QUERY_STRING'];
+    // setcookie('app', "", -1);
+    parse_str($captureui_name); //returns $app if in params
+} else if (isset($_COOKIE['app'])) {
   $app = $_COOKIE['app'];
-} else if ($_SERVER['QUERY_STRING']){
-  $captureui_name = $_SERVER['QUERY_STRING'];
-  parse_str($captureui_name); //returns $app if in params
 } else {
+  setcookie('app', "", -1);
   $app = 'demo';
 }
 
 if (sizeof($options['captureui_addrs']) > 0 && (bool) $app) {
-  setcookie('app', $app);
+  setcookie('app', $app, time()+3600*24);
   $options['captureui_addr'] = $options['captureui_addrs'][$app];
   $options['capture_addr'] = $options['capture_addrs'][$app];
   $options['client_id'] = $options['client_ids'][$app];

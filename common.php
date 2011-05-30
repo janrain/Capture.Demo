@@ -7,7 +7,7 @@
 // ------------------------------------------------------------
 ?>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script src="<?php echo ($options['use_ssl'] ? "https://" : "http://"); ?>ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script src="fancybox/jquery.fancybox-1.3.3.pack.js"></script>
 <script src="json2.js"></script>
 <script src="./Capture.js"></script>

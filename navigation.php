@@ -5,7 +5,6 @@
 // Not meant to be a top-level file.
 // Included by common.php.
 // ------------------------------------------------------------
-
 ?>
 
 <script type="text/javascript">
@@ -30,6 +29,7 @@ function make_navigation_bar($user_entity, $page_name = NULL)
 {
   global $options;
   echo "<div id='navigation'>\n";
+  make_app_addrs_list();
 
   // User is already logged in, so
   //   - access user information and display welcome message
@@ -39,7 +39,7 @@ function make_navigation_bar($user_entity, $page_name = NULL)
 
     if (isset($user_entity['stat']) && $user_entity['stat'] == 'ok') {
       if (isset($_COOKIE['app'])) {
-        echo "<b>" . $_COOKIE['app'] . "</b>&nbsp;";
+        echo "<span id='app_name'>" . $_COOKIE['app'] . "</span>&nbsp;";
       }
       $user_entity = $user_entity['result'];
 
@@ -69,7 +69,6 @@ function make_navigation_bar($user_entity, $page_name = NULL)
 
   // User is not logged in, so display signin link
   else {
-    make_app_addrs_list();
     make_signin_link();
   }
 
@@ -80,7 +79,8 @@ function make_app_addrs_list()
   global $options;
   $app_addrs = $options['captureui_addrs'];
   $captureui_name = $_SERVER['QUERY_STRING'];
-  parse_str($captureui_name);
+  // parse_str($captureui_name);
+  $app = $_COOKIE['app'];
 
   if (sizeof($app_addrs) > 1) {
     echo "<select id='app_addrs'>";

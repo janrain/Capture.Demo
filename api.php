@@ -29,22 +29,31 @@ if (!session_start()){
    exit('Could not start session - are php sessions enabled?');
 }
 
+function capture_session_name()
+{
+  if (isset($_COOKIE['app']))
+    return ('capture_session_' . $_COOKIE['app']);
+  else
+    return NULL;
+}
+
 function capture_session()
 {
-  if (isset($_SESSION['capture_session']))
-    return $_SESSION['capture_session'];
-  else
+  $name = capture_session_name();
+  if (isset($_SESSION[$name]))
+    return ($_SESSION[$name]);
+ else
     return NULL;
 }
 
 function save_capture_session($capture_session)
 {
-  $_SESSION['capture_session'] = $capture_session;
+  $_SESSION[capture_session_name()] = $capture_session;
 }
 
 function clear_capture_session()
 {
-  unset($_SESSION['capture_session']);
+  unset($_SESSION[capture_session_name()]);
 }
 
 // ----------
