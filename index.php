@@ -24,5 +24,7 @@ make_navigation_bar($user_entity, "home");
 include 'home.php';
 ?>
 
+
+
 </body>
 </html>

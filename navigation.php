@@ -14,12 +14,22 @@
           scrolling: 'no',
           autoScale: true,
           width: 666,
-          height: 430,
+          height: 700,
           autoDimensions: false
        });
        // $('a[rel*=lightbox]').fancybox()
+       $('#direct_signin_link').fancybox({
+          padding: 0,
+          scrolling: 'no',
+          autoScale: true,
+          width: 666,
+          height: 700,
+          autoDimensions: false
+       });
    })
 </script>
+
+
 
 <?php
 // Display navigation bar based on $user_entity.
@@ -29,8 +39,9 @@ function make_navigation_bar($user_entity, $page_name = NULL)
 {
   global $options;
   echo "<div id='navigation'>\n";
-  make_app_addrs_list();
-
+    direct_signin_link('aol', 'AOL');
+    make_app_addrs_list();
+  
   // User is already logged in, so
   //   - access user information and display welcome message
   //   - display 'home', 'editprofile', and 'logout' links.
@@ -110,4 +121,21 @@ function make_signin_link()
 
   echo "<a id='signin_link' class='iframe' href='$app_addr/oauth/signin?" . http_build_query($args) . "'>Register / Sign In</a><br>\n\n";
 }
+
+function direct_signin_link($provider_name = 'google', $provider_label = 'Google', $user_input = null) {
+  global $options;
+  $app_addr = $options['captureui_addr'];
+
+  $args = array ( 'response_type'   => 'code',
+                  'redirect_uri'    => $options['my_addr'] . "/oauth_redirect.php",
+                  'client_id'       => $options['client_id'],
+                  'xd_receiver'     => $options['my_addr'] . "/xdcomm.html"//,
+                  // 'provider_name'   => $provider_name);
+                  );
+  if ($user_input) {
+    $args['user_input'] = $user_input;
+  }
+  echo "<a id='direct_signin_link' class='iframe' href='$app_addr/oauth/signin?" . http_build_query($args) . "'>$provider_label</a><br>\n\n";
+}
+
 ?>
