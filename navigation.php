@@ -14,18 +14,22 @@
           scrolling: 'no',
           autoScale: true,
           width: 666,
-          height: 700,
+          height: 830,
           autoDimensions: false
        });
        // $('a[rel*=lightbox]').fancybox()
-       $('#direct_signin_link').fancybox({
-          padding: 0,
-          scrolling: 'no',
-          autoScale: true,
-          width: 666,
-          height: 700,
-          autoDimensions: false
-       });
+       $('a.fb_direct').each(function(){
+         console.log($(this));
+          $(this).fancybox({
+            padding: 0,
+            scrolling: 'no',
+            autoScale: true,
+            width: 666,
+            height: 700,
+            autoDimensions: false,
+            'type': 'iframe'
+          });
+        });
    })
 </script>
 
@@ -39,9 +43,8 @@ function make_navigation_bar($user_entity, $page_name = NULL)
 {
   global $options;
   echo "<div id='navigation'>\n";
-    direct_signin_link('aol', 'AOL');
     make_app_addrs_list();
-  
+
   // User is already logged in, so
   //   - access user information and display welcome message
   //   - display 'home', 'editprofile', and 'logout' links.
@@ -82,6 +85,12 @@ function make_navigation_bar($user_entity, $page_name = NULL)
   else {
     make_signin_link();
   }
+  echo "<div>DPS: ";
+    direct_signin_link('aol', 'AOL', 'vjcharlestest');
+    direct_signin_link('google', 'Google');
+    direct_signin_link('yahoo', 'Yahoo!');
+    direct_signin_link('facebook', 'Facebook');
+  echo "</div>";
 
   echo "</div>\n";
 }
@@ -129,13 +138,18 @@ function direct_signin_link($provider_name = 'google', $provider_label = 'Google
   $args = array ( 'response_type'   => 'code',
                   'redirect_uri'    => $options['my_addr'] . "/oauth_redirect.php",
                   'client_id'       => $options['client_id'],
-                  'xd_receiver'     => $options['my_addr'] . "/xdcomm.html"//,
-                  // 'provider_name'   => $provider_name);
+                  'xd_receiver'     => $options['my_addr'] . "/xdcomm.html",
+                  'provider_name'   => $provider_name
                   );
   if ($user_input) {
     $args['user_input'] = $user_input;
   }
-  echo "<a id='direct_signin_link' class='iframe' href='$app_addr/oauth/signin?" . http_build_query($args) . "'>$provider_label</a><br>\n\n";
+
+  $capture_session = capture_session();
+  if (isset($capture_session)) {
+    $args['access_token'] = $capture_session['access_token'];
+  }
+  echo "<a class='iframe fb_direct' href='$app_addr/oauth/signin?" . http_build_query($args) . "'>$provider_label</a>&nbsp;";
 }
 
 ?>
