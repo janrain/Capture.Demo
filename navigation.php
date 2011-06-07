@@ -33,7 +33,12 @@
    })
 </script>
 
-
+<script type="text/javascript">
+      Backplane.init({
+        "serverBaseURL": "http://api.js-kit.com/v1",
+        "busName": "rpxstaging"
+      });
+</script>
 
 <?php
 // Display navigation bar based on $user_entity.
@@ -129,6 +134,12 @@ function make_signin_link()
   //echo "<iframe id='signin' style='display:none;' src='http://$app_addr/oauth/signin?" . http_build_query($args) . "' scrolling='no' width='600' height='450' frameborder='0'></iframe>\n";
 
   echo "<a id='signin_link' class='iframe' href='$app_addr/oauth/signin?" . http_build_query($args) . "'>Register / Sign In</a><br>\n\n";
+  echo '
+  <script type="text/javascript">
+     document.getElementById("signin_link").href+="&bp_channel="+encodeURIComponent(Backplane.getChannelID());
+  </script>
+  ';
+
 }
 
 function direct_signin_link($provider_name = 'google', $provider_label = 'Google', $user_input = null) {
@@ -151,5 +162,4 @@ function direct_signin_link($provider_name = 'google', $provider_label = 'Google
   }
   echo "<a class='iframe fb_direct' href='$app_addr/oauth/signin?" . http_build_query($args) . "'>$provider_label</a>&nbsp;";
 }
-
 ?>

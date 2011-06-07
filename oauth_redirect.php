@@ -8,6 +8,7 @@ include 'api.php';
 <body>
 
 <?php
+
 if (isset($_GET['code']))
 {
   $auth_code    = $_GET["code"];
