@@ -62,7 +62,7 @@ function make_edit_profile_frame($access_token)
                  'callback'    => 'CAPTURE.closeProfileEditor',
                  'xd_receiver' => $options['my_addr'] . "/xdcomm.html");
 
-  echo "<iframe class='profile' frameborder='0' scrolling='no' src='$app_addr/oauth/profile?" . http_build_query($args) . "'></iframe><br>\n\n";
+  echo "<iframe class='profile' frameborder='0' scrolling='yes' src='$app_addr/oauth/profile?" . http_build_query($args) . "'></iframe><br>\n\n";
 }
 
 ?>
