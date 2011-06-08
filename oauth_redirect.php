@@ -25,7 +25,6 @@ if (isset($_GET['code']))
 
   debug_out("*** Auth code: $auth_code <br>\n");
   debug_out("*** Redirect uri: $redirect_uri");
-
   // note: new_access_token is defined in api.php
   new_access_token($auth_code, $redirect_uri);
 

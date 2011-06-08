@@ -128,7 +128,13 @@ function capture_api_call($command, $arg_array = NULL, $access_token = NULL)
 
 function get_entity($access_token)
 {
-  return capture_api_call("entity", NULL, $access_token);
+  global $options;
+  if(isset($options['application_id']))  {
+    $args = array('application_id' => $options['application_id']);
+  } else {
+    $args = NULL;
+  }
+  return capture_api_call("entity", $args, $access_token);
 }
 
 // ----------
@@ -190,7 +196,6 @@ function load_user_entity($can_refresh = true)
   if (isset($user_entity['code'])){
     debug_out("*** Unknown error: " . $user_entity['code'] . "<br>\n\n");
   }
-
   return $user_entity;
 }
 
@@ -204,7 +209,6 @@ function load_user_entity($can_refresh = true)
 function update_capture_session($json_data)
 {
   global $options;
-
   if (isset($json_data['stat']) && $json_data['stat'] == 'error')
   {
     debug_out("*** update_capture_session: input has an error<br>\n");
@@ -243,6 +247,9 @@ function refresh_access_token($refresh_token)
                                    'client_id'     => $options['client_id'],
                                    'client_secret' => $options['client_secret']);
 
+  if(isset($options['application_id'])) {
+    $arg_array['application_id'] = $options['application_id'];
+  }
   $json_data = capture_api_call($command, $arg_array);
 
   update_capture_session($json_data);
@@ -259,13 +266,16 @@ function refresh_access_token($refresh_token)
 function new_access_token($auth_code, $redirect_uri)
 {
   global $options;
-
   $command   = "oauth/token";
   $arg_array = array('code'          => $auth_code,
                      'redirect_uri'  => $redirect_uri,
                      'grant_type'    => 'authorization_code',
                      'client_id'     => $options['client_id'],
                      'client_secret' => $options['client_secret']);
+
+  if(isset($options['application_id'])) {
+    $arg_array['application_id'] = $options['application_id'];
+  }
 
   $json_data = capture_api_call($command, $arg_array);
 

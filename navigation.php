@@ -55,7 +55,6 @@ function make_navigation_bar($user_entity, $page_name = NULL)
   //   - display 'home', 'editprofile', and 'logout' links.
 
   if (isset($user_entity)) {
-
     if (isset($user_entity['stat']) && $user_entity['stat'] == 'ok') {
       if (isset($_COOKIE['app'])) {
         echo "<span id='app_name'>" . $_COOKIE['app'] . "</span>&nbsp;";
