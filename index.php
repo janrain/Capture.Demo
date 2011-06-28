@@ -24,5 +24,18 @@ make_navigation_bar($user_entity, "home");
 include 'home.php';
 ?>
 
+<script type='text/javascript'>
+  var CAPTUREUI = {};
+  //Callback fired after recover_password form is submitted
+  // if recover_password_callback param passed in with capture signin link (see make_signin_link())
+  CAPTUREUI.recoverPasswordCallback = function() {
+    $.fancybox.close();
+    $('#message').show();
+    $('#message').text("We've sent an email with instructions for creating a new password. Your existing password has not been changed.");
+  };
+
+</script>
+
+
 </body>
 </html>
