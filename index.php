@@ -20,8 +20,8 @@ include 'common.php';
 
 $user_entity = load_user_entity();
 make_navigation_bar($user_entity, "home");
-
 include 'home.php';
+
 ?>
 
 <script type='text/javascript'>
@@ -34,6 +34,23 @@ include 'home.php';
     $('#message').text("We've sent an email with instructions for creating a new password. Your existing password has not been changed.");
   };
 
+
+  //For custom redirect url for email verification.
+  // 'settings/set_default' api call for setting the verify_email_redirect key with this url and params (<domain>/index.php?email_verified=true)
+  CAPTUREUI.emailVerified = function() {
+    $.urlParam = function(name){
+      var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+      if (results !== null) {
+        return results[1];
+      } else {
+        return 0;
+      }
+    }
+    if ($.urlParam('email_verified') == 'true') {
+      $('#message').show();
+      $('#message').text("Thank you. Your email has been verified.");
+    }
+  }();
 </script>
 
 
