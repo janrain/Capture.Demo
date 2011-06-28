@@ -29,22 +29,31 @@ if (!session_start()){
    exit('Could not start session - are php sessions enabled?');
 }
 
+function capture_session_name()
+{
+  if (isset($_COOKIE['app']))
+    return ('capture_session_' . $_COOKIE['app']);
+  else
+    return NULL;
+}
+
 function capture_session()
 {
-  if (isset($_SESSION['capture_session']))
-    return $_SESSION['capture_session'];
-  else
+  $name = capture_session_name();
+  if (isset($_SESSION[$name]))
+    return ($_SESSION[$name]);
+ else
     return NULL;
 }
 
 function save_capture_session($capture_session)
 {
-  $_SESSION['capture_session'] = $capture_session;
+  $_SESSION[capture_session_name()] = $capture_session;
 }
 
 function clear_capture_session()
 {
-  unset($_SESSION['capture_session']);
+  unset($_SESSION[capture_session_name()]);
 }
 
 // ----------
@@ -119,7 +128,13 @@ function capture_api_call($command, $arg_array = NULL, $access_token = NULL)
 
 function get_entity($access_token)
 {
-  return capture_api_call("entity", NULL, $access_token);
+  global $options;
+  if(isset($options['application_id']))  {
+    $args = array('application_id' => $options['application_id']);
+  } else {
+    $args = NULL;
+  }
+  return capture_api_call("entity", $args, $access_token);
 }
 
 // ----------
@@ -181,7 +196,6 @@ function load_user_entity($can_refresh = true)
   if (isset($user_entity['code'])){
     debug_out("*** Unknown error: " . $user_entity['code'] . "<br>\n\n");
   }
-
   return $user_entity;
 }
 
@@ -195,7 +209,6 @@ function load_user_entity($can_refresh = true)
 function update_capture_session($json_data)
 {
   global $options;
-
   if (isset($json_data['stat']) && $json_data['stat'] == 'error')
   {
     debug_out("*** update_capture_session: input has an error<br>\n");
@@ -234,6 +247,9 @@ function refresh_access_token($refresh_token)
                                    'client_id'     => $options['client_id'],
                                    'client_secret' => $options['client_secret']);
 
+  if(isset($options['application_id'])) {
+    $arg_array['application_id'] = $options['application_id'];
+  }
   $json_data = capture_api_call($command, $arg_array);
 
   update_capture_session($json_data);
@@ -250,13 +266,16 @@ function refresh_access_token($refresh_token)
 function new_access_token($auth_code, $redirect_uri)
 {
   global $options;
-
   $command   = "oauth/token";
   $arg_array = array('code'          => $auth_code,
                      'redirect_uri'  => $redirect_uri,
                      'grant_type'    => 'authorization_code',
                      'client_id'     => $options['client_id'],
                      'client_secret' => $options['client_secret']);
+
+  if(isset($options['application_id'])) {
+    $arg_array['application_id'] = $options['application_id'];
+  }
 
   $json_data = capture_api_call($command, $arg_array);
 
