@@ -9,19 +9,19 @@ include 'api.php';
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Edit Profile</title>
+  <title>Public Profile</title>
 </head>
 
 <?php
 include 'common.php';
-
 $user_entity = load_user_entity();
-make_navigation_bar($user_entity, "editprofile");
-
+make_navigation_bar($user_entity, "public_profile");
 $capture_session = capture_session();
+
+$user_id = $user_entity['result']['id'];
 if (isset($capture_session)) {
   print '<div id="page"><div class="content">';
-  make_edit_profile_frame($capture_session['access_token']);
+  make_public_profile_frame($capture_session['access_token'], $user_id);
   print '</div></div>';
 }
 
@@ -39,10 +39,6 @@ else {
       console.log("resize", o);
     }
   };
-  CAPTURE.closeProfileEditor = function() {
-    window.location = ".";
-  };
-
 </script>
 
 </body>
@@ -53,16 +49,13 @@ else {
 // ------------------------------------------------------------
 // utility functions
 
-function make_edit_profile_frame($access_token)
+function make_public_profile_frame($access_token, $user_id)
 {
   global $options;
   $app_addr = $options['captureui_addr'];
 
-  $args = array( 'token'       => $access_token,
-                 'callback'    => 'CAPTURE.closeProfileEditor',
-                 'xd_receiver' => $options['my_addr'] . "/xdcomm.html");
-
-  echo "<iframe class='profile' frameborder='0' scrolling='no' src='$app_addr/oauth/profile?" . http_build_query($args) . "'></iframe><br>\n\n";
+  $args = array('id' => $user_id);
+  echo "<iframe class='profile' frameborder='0' scrolling='yes' src='$app_addr/oauth/public_profile?" . http_build_query($args) . "'></iframe><br>\n\n";
 }
 
 ?>

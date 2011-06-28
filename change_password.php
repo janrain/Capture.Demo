@@ -9,7 +9,7 @@ include 'api.php';
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Edit Profile</title>
+  <title>Change Password</title>
 </head>
 
 <?php
@@ -21,10 +21,9 @@ make_navigation_bar($user_entity, "editprofile");
 $capture_session = capture_session();
 if (isset($capture_session)) {
   print '<div id="page"><div class="content">';
-  make_edit_profile_frame($capture_session['access_token']);
+  make_reset_password_frame($capture_session['access_token']);
   print '</div></div>';
 }
-
 else {
   echo "You must login to access this page<br>\n";
 }
@@ -39,8 +38,8 @@ else {
       console.log("resize", o);
     }
   };
-  CAPTURE.closeProfileEditor = function() {
-    window.location = ".";
+  CAPTURE.closeChangePassword = function() {
+    window.location = "<?php echo './editprofile.php'; ?>";
   };
 
 </script>
@@ -53,16 +52,16 @@ else {
 // ------------------------------------------------------------
 // utility functions
 
-function make_edit_profile_frame($access_token)
+function make_reset_password_frame($access_token)
 {
   global $options;
   $app_addr = $options['captureui_addr'];
 
   $args = array( 'token'       => $access_token,
-                 'callback'    => 'CAPTURE.closeProfileEditor',
+                 'callback'    => 'CAPTURE.closeChangePassword',
                  'xd_receiver' => $options['my_addr'] . "/xdcomm.html");
 
-  echo "<iframe class='profile' frameborder='0' scrolling='no' src='$app_addr/oauth/profile?" . http_build_query($args) . "'></iframe><br>\n\n";
+  echo "<iframe class='profile' frameborder='0' scrolling='no' src='$app_addr/oauth/profile_change_password?" . http_build_query($args) . "'></iframe><br>\n\n";
 }
 
 ?>

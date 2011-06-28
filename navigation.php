@@ -51,12 +51,16 @@ function make_navigation_bar($user_entity, $page_name = NULL)
       } else {
         echo "&nbsp;|&nbsp; Edit Your Profile";
       }
-      if ($page_name != "rawprofile") {
-        echo "&nbsp;|&nbsp; <a href='rawprofile.php' id='raw_profile'>View Capture Profile</a>";
+      // if ($page_name != "rawprofile") {
+      //   echo "&nbsp;|&nbsp; <a href='rawprofile.php' id='raw_profile'>View Capture Profile</a>";
+      // } else {
+      //   echo "&nbsp;|&nbsp; View Capture Profile";
+      // }
+      if ($page_name != "public_profile") {
+        echo "&nbsp;|&nbsp; <a href='public_profile.php' id='public_profile'>View Public Profile</a>";
       } else {
-        echo "&nbsp;|&nbsp; View Capture Profile";
+        echo "&nbsp;|&nbsp; View Public Profile";
       }
-
     } else {
       debug_out("*** Bad entity!<br>\n");
       debug_raw_data($user_entity);

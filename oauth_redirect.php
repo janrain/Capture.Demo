@@ -26,16 +26,19 @@ if (isset($_GET['code']))
 
 
   debug_out("*** Auth code: $auth_code <br>\n");
-
-  // note: new_access_token is defined in common.php
-  new_access_token($auth_code, $redirect_uri);
-
+  debug_out("*** Redirect uri: $redirect_uri");
+  // note: new_access_token is defined in api.php
+  $json_data = new_access_token($auth_code, $redirect_uri);
+  $redirect_to = '';
+  if (isset($json_data['transaction_state']['capture']['password_recover']) && $json_data['transaction_state']['capture']['password_recover'] == 1){
+    $redirect_to = '/change_password.php';
+  }
 }
 ?>
 
 <script type='text/javascript'>
   if (window.top == window.self)
-    window.location = "."; // hard-code this location for now...
+    window.location = "." . $redirect_to; // hard-code this location for now...
   else
     window.parent.location.reload();
 </script>

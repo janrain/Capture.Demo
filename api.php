@@ -261,6 +261,7 @@ function new_access_token($auth_code, $redirect_uri)
   $json_data = capture_api_call($command, $arg_array);
 
   update_capture_session($json_data);
+  return $json_data;
 }
 
 // ------------------------------------------------------------
