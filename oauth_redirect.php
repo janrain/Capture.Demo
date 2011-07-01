@@ -34,10 +34,12 @@ if (isset($_GET['code']))
 }
 ?>
 <script type='text/javascript'>
-  if (window.top == window.self)
-    window.location = "." . $redirect_to; // hard-code this location for now...
-  else
+  if (window.top == window.self) {
+    window.location = "." + "<?php echo $redirect_to ?>";
+  }
+  else {
     window.parent.location.reload();
+  }
 </script>
 
 </body>
