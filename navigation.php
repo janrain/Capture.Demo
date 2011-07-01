@@ -13,7 +13,7 @@
           padding: 0,
           scrolling: 'no',
           autoScale: true,
-          width: 666,
+          width: 600,
           height: 830,
           autoDimensions: false
        });
