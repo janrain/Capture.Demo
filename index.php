@@ -17,7 +17,6 @@ include 'api.php';
 
 <?php
 include 'common.php';
-
 $user_entity = load_user_entity();
 make_navigation_bar($user_entity, "home");
 include 'home.php';
@@ -37,7 +36,7 @@ include 'home.php';
 
   //For custom redirect url for email verification.
   // 'settings/set_default' api call for setting the verify_email_redirect key with this url and params (<domain>/index.php?email_verified=true)
-  CAPTUREUI.emailVerified = function() {
+  CAPTUREUI.emailVerifiedCallback = function() {
     $.urlParam = function(name){
       var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
       if (results !== null) {
