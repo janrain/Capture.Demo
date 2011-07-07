@@ -93,13 +93,13 @@ function make_navigation_bar($user_entity, $page_name = NULL)
   else {
     make_signin_link();
   }
-  echo "<div>DPS: ";
-    direct_signin_link('aol', 'AOL', 'vjcharlestest');
-    direct_signin_link('google', 'Google');
-    direct_signin_link('yahoo', 'Yahoo!');
-    direct_signin_link('facebook', 'Facebook');
-  echo "</div>";
-
+  // echo "<div>DPS: ";
+  //   direct_signin_link('aol', 'AOL', 'vjcharlestest');
+  //   direct_signin_link('google', 'Google');
+  //   direct_signin_link('yahoo', 'Yahoo!');
+  //   direct_signin_link('facebook', 'Facebook');
+  // echo "</div>";
+  // 
   echo "</div>\n";
 }
 function make_app_addrs_list()
