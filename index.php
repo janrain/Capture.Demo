@@ -33,7 +33,6 @@ include 'home.php';
     $('#message').text("We've sent an email with instructions for creating a new password. Your existing password has not been changed.");
   };
 
-
   //For custom redirect url for email verification.
   // 'settings/set_default' api call for setting the verify_email_redirect key with this url and params (<domain>/index.php?email_verified=true)
   CAPTUREUI.emailVerifiedCallback = function() {
@@ -45,9 +44,12 @@ include 'home.php';
         return 0;
       }
     }
-    if ($.urlParam('email_verified') == 'true') {
+    if ($.urlParam('email_verification') === 'true' && !$.urlParam('verification')) {
       $('#message').show();
       $('#message').text("Thank you. Your email has been verified.");
+    } else if ($.urlParam('email_verification') === 'true' && $.urlParam('verification') === 'invalid') {
+      $('#message').show();
+      $('#message').text("Your email was not verified. Please try again.");
     }
   }();
 </script>
