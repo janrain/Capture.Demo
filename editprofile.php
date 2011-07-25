@@ -32,14 +32,6 @@ else {
 
 <script type='text/javascript'>
   var CAPTURE = {};
-
-  CAPTURE.resize = function(json) {
-    var o = JSON.parse(json);
-    $("iframe").height(o.h).width(o.w);
-    if (typeof console !== 'undefined') {
-      console.log("resize", o);
-    }
-  };
   CAPTURE.closeProfileEditor = function() {
     window.location = ".";
   };
