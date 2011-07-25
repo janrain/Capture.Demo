@@ -11,7 +11,7 @@
    jQuery(document).ready(function($) {
        $('#signin_link').fancybox({
           padding: 0,
-          scrolling: 'yes',
+          scrolling: 'no',
           autoScale: true,
           width: 600,
           height: 830,
