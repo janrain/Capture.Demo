@@ -95,10 +95,10 @@ function capture_api_call($command, $arg_array = NULL, $access_token = NULL)
 
   if (curl_getinfo($cr, CURLINFO_HTTP_CODE) != 200)
   {
-    echo $info['http_code'] . "<br><br>\n\n";
-    echo $curl_result;
+    debug_out($info['http_code'] . "<br><br>\n\n");
+    debug_out($curl_result);
     curl_close($cr); //cleanup
-    die();
+    throw new Exception("Problem with Capture API Call");
   }
 
   $json_data = json_decode($curl_result, true);
@@ -107,15 +107,16 @@ function capture_api_call($command, $arg_array = NULL, $access_token = NULL)
   /*
   if (!isset($json_data['stat']) || $json_data['stat'] != 'ok')
   {
-    echo "<pre>";
+    $msg = "<pre>";
     if (isset($json_data['code']))
-      echo "Error code " . $json_data['code'] . "\n";
+      $msg .= "Error code " . $json_data['code'] . "\n";
     if (isset($json_data['error']))
-      echo $json_data['error'] . "\n";
+      $msg .= $json_data['error'] . "\n";
     if (!isset($json_data['code']) && !isset($json_data['error']))
-      print_r($json_data);
-    echo "</pre>";
-    die();
+      $msg .= print_r($json_data, TRUE);
+    $msg .= "</pre>";
+    debug_out($msg);
+    throw new Exception("Invalid result from Capture API Call");
   }
   */
 
