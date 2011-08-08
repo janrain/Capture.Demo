@@ -11,7 +11,7 @@
    jQuery(document).ready(function($) {
        $('#signin_link').fancybox({
           padding: 0,
-          scrolling: 'yes',
+          scrolling: 'no',
           autoScale: true,
           width: 600,
           height: 830,
@@ -51,7 +51,7 @@ function make_navigation_bar($user_entity, $page_name = NULL)
       if ($page_name != "home")
         echo "<a href='.' id='home'>Home</a>";
 
-      // echo "Hello, " . $user_entity['givenName'] . "";
+      echo "Hello, " . $user_entity['displayName'] . "";
 
       if ($page_name != "editprofile") {
         echo "&nbsp;|&nbsp; <a href='editprofile.php' id='edit_profile'>Edit Your Profile</a>";
