@@ -32,7 +32,7 @@ else {
 <script type='text/javascript'>
   var CAPTURE = {};
   CAPTURE.closeChangePassword = function() {
-    window.parent.location = "./editprofile";
+    window.location = "./editprofile";
   };
 </script>
 
