@@ -31,23 +31,9 @@ else {
 
 <script type='text/javascript'>
   var CAPTURE = {};
-<<<<<<< HEAD
   CAPTURE.closeChangePassword = function() {
     window.parent.location = "./editprofile";
   };
-=======
-  CAPTURE.resize = function(json) {
-    var o = JSON.parse(json);
-    $("iframe").height(o.h).width(o.w);
-    if (typeof console !== 'undefined') {
-      console.log("resize", o);
-    }
-  };
-  CAPTURE.closeChangePassword = function() {
-    window.location = "<?php echo './editprofile.php'; ?>";
-  };
-
->>>>>>> 3f2b1c33ce0e45a11bb4e8c3b258ef5b4e8a66ea
 </script>
 
 </body>
