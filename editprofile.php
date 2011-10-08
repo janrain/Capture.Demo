@@ -31,7 +31,6 @@ else {
 ?>
 
 <script type='text/javascript'>
-  var CAPTURE = {};
   CAPTURE.closeProfileEditor = function() {
     window.location = ".";
   };
