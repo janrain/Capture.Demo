@@ -13,6 +13,9 @@ $default_options = array( 'debug'          => false,
                           'use_ssl'        => true
                           );
 
+// For allowing 3rd party cookies in IE.
+header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CN\
+T"');
 $options = parse_ini_file("config.ini");
 
 $is_index = preg_match('/\/index.php/', $_SERVER['PHP_SELF']);
