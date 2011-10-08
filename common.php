@@ -11,7 +11,8 @@
 <script src="fancybox/jquery.fancybox-1.3.3.pack.js"></script>
 <script src="json2.js"></script>
 <script src="./Capture.js"></script>
-<script src="http://cdn.echoenabled.com/clientapps/v2/backplane.js"></script> 
+<script src="http://cdn.echoenabled.com/clientapps/v2/backplane.js"></script>
+<script src="<?php echo ($options['captureui_addr']); ?>/cdn/javascripts/capture_client.js"></script>
 <link rel="stylesheet" href="fancybox/jquery.fancybox-1.3.3.css" />
 <link rel="stylesheet" href="style.css">
 
