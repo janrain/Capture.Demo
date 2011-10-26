@@ -65,61 +65,41 @@ function clear_capture_session()
 
 function capture_api_call($command, $arg_array = NULL, $access_token = NULL)
 {
-  global $options;
+    global $options;
+    $url = $options['capture_addr'] . "/$command";
 
-  $url = $options['capture_addr'] . "/$command";
-  $curl_opts = array(CURLPROTO_HTTP => true, CURLOPT_RETURNTRANSFER => true);
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_SSLVERSION, 3);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    if (isset($access_token))
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: OAuth $access_token"));
+    if (isset($arg_array)) {
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($arg_array));
+    }
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    curl_setopt($curl, CURLOPT_FAILONERROR, false);
 
-  if (substr($options['capture_addr'], 0, 5) == "https")
-    $curl_opts[CURLOPT_SSLVERSION] = 3;
+    $result = curl_exec($curl);
+    if ($result == false) {
+        echo('Curl error: ' . curl_error($curl) . '<br />');
+        echo('HTTP code: ' . curl_errno($curl));
+        curl_close($curl);
+        die();
+    }
 
-  if (isset($access_token))
-    $curl_opts[CURLOPT_HTTPHEADER] = array("Authorization: OAuth $access_token");
+    $json_data = json_decode($result, true);
+    curl_close($curl);
 
-  //set method
-  if (isset($arg_array))
-    $curl_opts[CURLOPT_POST] = true;
-  else
-    $curl_opts[CURLOPT_HTTPGET] = true; //defaults to get
+    // from Documentation:
+    // print ("<br><br>result from api call " . $command . ":<br>");
+    // print_r($json_data);
+    // print ("<br><br>");
 
-  $cr = curl_init($url);
-  curl_setopt_array($cr, $curl_opts);
+    return $json_data;
 
-  if (isset($arg_array))
-    curl_setopt($cr, CURLOPT_POSTFIELDS, http_build_query($arg_array));
-
-  curl_setopt($cr, CURLINFO_HEADER_OUT, true);
-
-  $curl_result = curl_exec($cr);
-  $info = curl_getinfo($cr);
-
-  if (curl_getinfo($cr, CURLINFO_HTTP_CODE) != 200)
-  {
-    echo $info['http_code'] . "<br><br>\n\n";
-    echo $curl_result;
-    curl_close($cr); //cleanup
-    die();
-  }
-
-  $json_data = json_decode($curl_result, true);
-  curl_close($cr); //cleanup
-
-  /*
-  if (!isset($json_data['stat']) || $json_data['stat'] != 'ok')
-  {
-    echo "<pre>";
-    if (isset($json_data['code']))
-      echo "Error code " . $json_data['code'] . "\n";
-    if (isset($json_data['error']))
-      echo $json_data['error'] . "\n";
-    if (!isset($json_data['code']) && !isset($json_data['error']))
-      print_r($json_data);
-    echo "</pre>";
-    die();
-  }
-  */
-
-  return $json_data;
 }
 
 // ----------
