@@ -95,7 +95,7 @@ function make_signin_link()
                   'redirect_uri'    => $options['my_addr'] . "/oauth_redirect.php",
                   'client_id'       => $options['client_id'],
                   'xd_receiver'     => $options['my_addr'] . "/xdcomm.html",
-                  'recover_password_callback' => 'CAPTUREUI.recoverPasswordCallback'); //optionally pass in callback
+                  'recover_password_callback' => 'CAPTURE.recoverPasswordCallback'); //optionally pass in callback
 
   //echo "<iframe id='signin' style='display:none;' src='http://$app_addr/oauth/signin?" . http_build_query($args) . "' scrolling='no' width='600' height='450' frameborder='0'></iframe>\n";
 

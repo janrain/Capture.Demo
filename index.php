@@ -24,10 +24,10 @@ include 'home.php';
 ?>
 
 <script type='text/javascript'>
-  var CAPTUREUI = {};
+  var CAPTURE = {};
   //Callback fired after recover_password form is submitted
   // if recover_password_callback param passed in with capture signin link (see make_signin_link())
-  CAPTUREUI.recoverPasswordCallback = function() {
+  CAPTURE.recoverPasswordCallback = function() {
     $.fancybox.close();
     $('#message').show();
     $('#message').text("We've sent an email with instructions for creating a new password. Your existing password has not been changed.");
@@ -35,7 +35,7 @@ include 'home.php';
 
   //For custom redirect url for email verification.
   // 'settings/set_default' api call for setting the verify_email_redirect key with this url and params (<domain>/index.php?email_verified=true)
-  CAPTUREUI.emailVerifiedCallback = function() {
+  CAPTURE.emailVerifiedCallback = function() {
     $.urlParam = function(name){
       var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
       if (results !== null) {
