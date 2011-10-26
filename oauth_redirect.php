@@ -32,21 +32,35 @@ if (isset($_GET['code']))
 
   debug_out("*** Auth code: $auth_code <br>\n");
   debug_out("*** Redirect uri: $redirect_uri");
+
   // note: new_access_token is defined in api.php
   $json_data = new_access_token($auth_code, $redirect_uri);
+
+  // uncomment this var_dump to see the data you get back from oauth/token.
+  // (also, be sure to set the var "do_the_redirect" to false below.)
+  // var_dump ($json_data);
+
   $redirect_to = '';
   if (isset($json_data['transaction_state']['capture']['password_recover']) && $json_data['transaction_state']['capture']['password_recover'] == 1){
     $redirect_to = '/change_password.php';
   }
+
 }
 ?>
 <script type='text/javascript'>
-  if (window.top == window.self) {
-    window.location = "." + "<?php echo $redirect_to ?>";
-  }
-  else {
-    window.parent.location.reload();
-  }
+
+    // (see above) set this to false if you are viewing the data from new_access_token.
+    var do_the_redirect = true;
+
+    if (do_the_redirect) {
+        if (window.top == window.self) {
+            window.location = "." + "<?php echo $redirect_to ?>";
+        }
+        else {
+            window.parent.location.reload();
+        }
+    }
+
 </script>
 
 </body>
