@@ -12,7 +12,14 @@ include 'api.php';
 if (isset($_GET['code']))
 {
   $auth_code    = $_GET["code"];
-  $from_sso    = $_GET["from_sso"];
+
+  if (isset($_GET['from_sso'])) {
+      $from_sso = $_GET["from_sso"];
+  }
+  else {
+      $from_sso = null;
+  }
+
   $redirect_uri = $options['my_addr'] . "/oauth_redirect.php";
   if (isset($options['sso_server']) && $from_sso){
      $my_uri = $options['my_addr'];
