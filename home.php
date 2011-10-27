@@ -12,7 +12,23 @@
 
     <div id='message' style="color: blue; padding: 20px; display: none"></div>
 
-    <ul class="lipsum">
+    <?php
+      if (isset($_SESSION['user_friendly_message'])) {
+          ?>
+
+              <script type="text/javascript">
+                  $('#message').show();
+                  $('#message').text("<?php echo $_SESSION['user_friendly_message']; ?>");
+              </script>
+
+          <?php
+
+          $_SESSION['user_friendly_message'] = null;
+      }
+    ?>
+
+
+      <ul class="lipsum">
       <li>
         <span>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id ipsum nec nunc vulputate porttitor eu in sapien. Nullam et metus eu diam dignissim sollicitudin. Donec metus dui, dictum non posuere quis, lacinia et magna. asdf asdf asdf.

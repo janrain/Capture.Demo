@@ -265,4 +265,40 @@ function new_access_token($auth_code, $redirect_uri)
 
 // ------------------------------------------------------------
 
+function capture_profile_sync() {
+
+    $profile = load_user_entity();
+    if (!$profile) {
+    	print ('Could not retrieve profile data. Please try again.');
+        return;
+    }
+
+    // update_user is call you would implement, to transfer data from
+    // $profile into the matching row in your database.
+    if (update_user($profile)) {
+
+        $_SESSION['user_friendly_message'] = "Your profile was successfully updated.";
+        header('Location: index.php');
+        exit;
+
+    }
+    else {
+
+        // just a sample - you would handle this according to your own practices.
+    	print ("Unable to update local user record");
+
+    }
+}
+
+
+// update_user is call you would implement, to transfer data from
+// $profile into the matching row in your database.
+function update_user($profile) {
+
+    // just for our example, always return true
+    return true;
+
+}
+
+
 ?>

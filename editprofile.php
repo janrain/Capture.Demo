@@ -31,10 +31,22 @@ else {
 ?>
 
 <script type='text/javascript'>
-  CAPTURE.closeProfileEditor = function() {
-    window.location = ".";
-  };
+    var CAPTURE = {};
+    CAPTURE.closeProfileEditor = function() {
 
+        <?php if ($options['do_capture_profile_sync']) { ?>
+
+            // if you ARE syncing data, then you need to call the profile_sync function:
+            window.location.href = 'profile_edit_finished.php';
+
+        <?php } else { ?>
+
+            // if NOT syncing data from Capture to your user table, you can just refresh the page:
+            window.location = ".";
+
+        <?php } ?>
+
+    };
 </script>
 
 </body>

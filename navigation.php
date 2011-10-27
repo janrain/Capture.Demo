@@ -9,14 +9,21 @@
 
 <script type="text/javascript">
    jQuery(document).ready(function($) {
-       $('#signin_link').fancybox({
-          padding: 0,
-          scrolling: 'no',
-          autoScale: true,
-          width: 600,
-          height: 830,
-          autoDimensions: false
-       });
+
+        $('#signin_link').fancybox({
+            padding: 0,
+            scrolling: 'no',
+            autoScale: true,
+            autoDimensions: false
+        });
+
+        $('#profile_link').fancybox({
+            padding: 0,
+            scrolling: 'no',
+            autoScale: true,
+            autoDimensions: false
+        });
+
    })
 </script>
 
@@ -52,16 +59,25 @@ function make_navigation_bar($user_entity, $page_name = NULL)
 
       echo "Hello, " . $user_entity['displayName'] . "";
 
-      if ($page_name != "editprofile") {
-        echo "&nbsp;|&nbsp; <a href='editprofile.php' id='edit_profile'>Edit Your Profile</a>";
-      } else {
-        echo "&nbsp;|&nbsp; Edit Your Profile";
+      print '&nbsp;|&nbsp;';
+
+      if ($options['edit_profile_with_fancybox']) {
+          echo '<a href="profile_with_token_refresh.php" id="profile_link" class="iframe">Edit Profile</a>';
       }
+      else {
+          if ($page_name != "editprofile") {
+              echo "<a href='editprofile.php' id='edit_profile'>Edit Your Profile</a>";
+          } else {
+              echo "Edit Your Profile";
+          }
+      }
+
       // if ($page_name != "rawprofile") {
       //   echo "&nbsp;|&nbsp; <a href='rawprofile.php' id='raw_profile'>View Capture Profile</a>";
       // } else {
       //   echo "&nbsp;|&nbsp; View Capture Profile";
       // }
+
       if ($page_name != "public_profile") {
         echo "&nbsp;|&nbsp; <a href='public_profile.php' id='public_profile'>View Public Profile</a>";
       } else {

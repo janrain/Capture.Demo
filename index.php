@@ -24,7 +24,50 @@ include 'home.php';
 ?>
 
 <script type='text/javascript'>
+
   var CAPTURE = {};
+
+  CAPTURE.closeProfileEditor = function() {
+
+      <?php if ($options['do_capture_profile_sync']) { ?>
+
+          // if you ARE syncing data, then you need to call the profile_sync function:
+          window.location.href = 'profile_edit_finished.php';
+
+      <?php } else { ?>
+
+          // if NOT syncing data from Capture to your user table, you can just refresh the page:
+          window.location = ".";
+
+      <?php } ?>
+
+  };
+
+  CAPTURE.resize = function(jargs) {
+
+      var args = JSON.parse(jargs);
+
+      jQuery("#fancybox-inner").css({
+          "width": args.w + "px",
+          "height": args.h + "px"
+      });
+      jQuery("#fancybox-wrap").css({
+          "width": args.w + "px",
+          "height": args.h + "px"
+      });
+      jQuery("#fancybox-content").css({
+          "height": args.h + "px",
+          "width": args.w + "px"
+      });
+      jQuery("#fancybox-frame").css({
+          "width": args.w + "px",
+          "height": args.h + "px"
+      });
+
+      jQuery.fancybox.resize();
+      jQuery.fancybox.center();
+  };
+
   //Callback fired after recover_password form is submitted
   // if recover_password_callback param passed in with capture signin link (see make_signin_link())
   CAPTURE.recoverPasswordCallback = function() {
