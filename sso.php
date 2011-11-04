@@ -5,6 +5,7 @@ global $options;
 
 if (isset($options['sso_server'])){
 ?>
+
 <script src="<?php echo $options['sso_server']; ?>/sso.js" type="text/javascript"></script>
 <script type="text/javascript">
 JANRAIN.SSO.CAPTURE.check_login({

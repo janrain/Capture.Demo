@@ -9,6 +9,10 @@ include 'api.php';
 
 <?php
 
+//var_dump ($_GET);
+
+error_log("oauth_redirect in client 1");
+
 if (isset($_GET['code']))
 {
   $auth_code    = $_GET["code"];
