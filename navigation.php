@@ -21,7 +21,8 @@
             padding: 0,
             scrolling: 'no',
             autoScale: true,
-            autoDimensions: false
+            autoDimensions: false,
+            width:675
         });
 
    })
