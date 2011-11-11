@@ -44,6 +44,10 @@ function make_navigation_bar($user_entity, $page_name = NULL)
   global $options;
   echo "<div id='navigation'>\n";
 
+  if (isset($options['captureui_addrs'])) {
+    make_app_addrs_list();
+  }
+
   // User is already logged in, so
   //   - access user information and display welcome message
   //   - display 'home', 'editprofile', and 'logout' links.
@@ -123,4 +127,35 @@ function make_signin_link()
   </script>
   ';
 }
+
+function make_app_addrs_list()
+{
+  global $options;
+  $app_addrs = $options['captureui_addrs'];
+  $captureui_name = $_SERVER['QUERY_STRING'];
+  // parse_str($captureui_name);
+  if (isset($_COOKIE['app'])) {
+      $app = $_COOKIE['app'];
+  }
+  else{
+      $app = "demo";
+  }
+
+  if (sizeof($app_addrs) > 1) {
+    echo "<select id='app_addrs'>";
+    foreach ($app_addrs as $key => $value) {
+      if($key == $app) {
+        $selected = "selected='yes' ";
+      } else {
+        $selected = "";
+      }
+      echo  "<option " . $selected . "value=" . $key . ">" . $key . " ==> " . $value . "</option>";
+    }
+    echo "</select>&nbsp;&nbsp;";
+  }
+}
+
+
+
+
 ?>
