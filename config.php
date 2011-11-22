@@ -36,7 +36,10 @@ if (isset($options['captureui_addrs'])) {
         $options['capture_addr'] = $options['capture_addrs'][$app];
         $options['client_id'] = $options['client_ids'][$app];
         $options['client_secret'] = $options['client_secrets'][$app];
-        $options['sso_server'] = $options['sso_servers'][$app];
+
+        if (isset($options['sso_servers'][$app])) {
+            $options['sso_server'] = $options['sso_servers'][$app];
+        }
     }
 }
 
