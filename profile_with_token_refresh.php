@@ -13,6 +13,7 @@ $app_addr = $options['captureui_addr'];
 $url = $app_addr
         . '/oauth/profile?flags=stay_in_window&access_token='
         . $capture_session['access_token']
+        . '&client_id=' . $options['client_id']
         . '&callback=CAPTURE.closeProfileEditor'
         . '&xd_receiver=' . $options['my_addr'] . "/xdcomm.html";
 
