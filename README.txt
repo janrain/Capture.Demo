@@ -7,8 +7,16 @@ Installation and Setup
 Place the contents of this directory in a location accessible by your web server
 (e.g. /var/www).
 
-Edit config.ini and set the variables client_id and client_secret.  Change any
-other variables as you see fit.
+Make a copy of example_config.ini, call it config.ini.
+
+Edit config.ini: uncomment and set the following variables:
+- client_id
+- client_secret
+- capture_addr
+- captureui_addr
+
+Change any other variables as you see fit or as described in the Capture Integration
+Guide.
 
 Documentation 
 ==============
